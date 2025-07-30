@@ -28,11 +28,55 @@ listContainer.addEventListener("click" , function(e){
     }
 },false);
 
-function saveData(){
-    localStorage.setItem("data" , listContainer.innerHTML);
+//Edit task
+listContainer.addEventListener("dblclick", function (e) {
+    if (e.target.tagName === "LI" && !e.target.classList.contains("checked")) {
+        const li = e.target;
+        const currentText = li.childNodes[0].nodeValue.trim(); // task text only
+        const input = document.createElement("input");
+
+        input.type = "text";
+        input.value = currentText;
+        input.className = "edit-input";
+        input.style.padding = "5px";
+        input.style.fontSize = "16px";
+        input.style.width = "90%";
+
+        li.innerHTML = ""; // clear existing li
+        li.appendChild(input);
+
+        input.focus();
+
+        input.addEventListener("blur", () => finishEdit(li, input.value));
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                finishEdit(li, input.value);
+            }
+        });
+    }
+});
+
+function finishEdit(li, newText) {
+    if (newText.trim() === "") {
+        alert("Task cannot be empty!");
+        showTask(); // Reload saved data
+        return;
+    }
+
+    li.textContent = newText;
+
+    let span = document.createElement("span");
+    span.innerHTML = "\u00d7";
+    li.appendChild(span);
+
+    saveData();
 }
 
-function showTask(){
+function saveData() {
+    localStorage.setItem("data", listContainer.innerHTML);
+}
+
+function showTask() {
     listContainer.innerHTML = localStorage.getItem("data");
 }
 

@@ -5,11 +5,24 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .container{
     width: 100%;
     min-height: 100vh;
     background: linear-gradient(135deg, #1e3c72 , #2a5298);
     padding: 10px;
+    flex: 1;
 }
 
 .todo-app{
@@ -111,6 +124,26 @@ ul li span{
 ul li span:hover{
     background : #e0eaf3;
 }
+
+.footer {
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #010758;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #ff2963;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
 
 @media screen and (max-width: 480px) {
     .todo-app {
